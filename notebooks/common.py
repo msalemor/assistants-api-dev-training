@@ -4,6 +4,7 @@ import html
 
 uri: str = ''
 key: str = ''
+email_URI: str = ''
 
 
 def get_stock_price(symbol: str) -> float:
@@ -12,7 +13,7 @@ def get_stock_price(symbol: str) -> float:
     return price
 
 
-def send_logic_apps_email(email_URI: str, to: str, content: str):
+def send_logic_apps_email(to: str, content: str):
     json_payload = {'to': to, 'content': html.unescape(content)}
     headers = {'Content-Type': 'application/json'}
     response = requests.post(email_URI, json=json_payload, headers=headers)
