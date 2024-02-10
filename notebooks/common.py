@@ -21,7 +21,7 @@ def send_logic_apps_email(to: str, content: str):
         print("Email sent to: " + json_payload['to'])
 
 
-def send_post(uri: str, key: str, payload: dict):
+def post_request(uri: str, key: str, payload: dict):
     headers = {'Content-Type': 'application/json',
                'api-key': key}
     response = requests.post(uri, json=payload, headers=headers)
@@ -42,5 +42,5 @@ def process_completion(prompt: str, max_tokens=100, temperature=0.3) -> str:
         "max_tokens": max_tokens,
         "temperature": temperature
     }
-    json = send_post(uri, key, payload)
+    json = post_request(uri, key, payload)
     return json["choices"][0]["message"]["content"]
