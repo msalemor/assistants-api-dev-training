@@ -4,10 +4,10 @@ An Assistants API development training
 
 ## Overview
 
-## Concepts
+## Objects
 
-## Tools
+## Event Loop
 
-## Events
+## Message Handling
 
 ## Cleanup
