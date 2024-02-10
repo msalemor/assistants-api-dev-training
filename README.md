@@ -51,7 +51,7 @@ For example, if a user sends two Prompt to the Assistant:
 As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows:
 
 | Role | Type | Message |
-|-----------|--------------------------------------------------------------------------------------------------|
+|------|------|---------|
 | assistant | Image | File_id to PNG image |
 | assistant | Text | Here’s your chart |
 | user | Text | Can you chart y=2*x+5, where x=[-10,10] |
