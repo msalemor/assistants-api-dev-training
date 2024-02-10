@@ -2,9 +2,14 @@
 
 An Assistants API development training
 
-## Overview
+## Objective
 
-## Objects
+- To define what Assistants API is
+- To introduce the Assistants API development concepts
+- Compare an app written without Assistants API and with Assistants API
+- Understand the Assistant API foundational concepts, limits
+
+## Objective
 
 ## Event Loop
 
