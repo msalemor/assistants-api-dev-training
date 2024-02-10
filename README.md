@@ -16,8 +16,8 @@ The Assistants API allows you to build AI assistants within your own application
 
 ## What is Assistants API
 
-- GPT models are restful endpoint
-  - Generally, GPT endpoints provide the `POST /completion` endpoint
+- GPT models are restful endpoint:
+  - `POST /completion`
 - Assistants API extended these models with:
   - `POST/GET/DELETE /assistant`
   - `POST/GET/DELETE /thread`
