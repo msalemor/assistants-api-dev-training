@@ -43,4 +43,21 @@ The Assistants API allows you to build AI assistants within your own application
 
 ## Message Handling
 
+For example, if a user sends two Prompt to the Assistant:
+
+1. Can you give me a recipe to bake a Cake.
+2. Can you chart y=2*x+5, where x=[-10,10].
+
+As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows:
+
+| Role | Type | Message |
+|-----------|--------------------------------------------------------------------------------------------------|
+| assistant | Image | File_id to PNG image |
+| assistant | Text | Here’s your chart |
+| user | Text | Can you chart y=2*x+5, where x=[-10,10] |
+| assistant | Text | Pour into a mold and bake at 350F for 45 minutes. |
+| assistant | Text | To bake a cake, blend a cup of flour, a cup of milk, half a cup of sugar, and a tablespoon of vanilla. |
+| assistant | Text | I can do that. |
+| user | Text | Can you give me a recipe to bake a cake. |
+
 ## Cleanup
