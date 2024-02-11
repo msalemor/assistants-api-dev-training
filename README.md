@@ -62,8 +62,6 @@ The Assistants API allows you to build AI assistants within your own application
 - Add Messages to the Thread as the user asks questions.
 - Run the Assistant on the Thread to trigger responses. This automatically calls the relevant tools.
 
-## Event Loop
-
 ## Thread Messages Handling
 
 For example, if a user sends two Prompt to the Assistant:
