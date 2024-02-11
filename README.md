@@ -42,11 +42,24 @@ The Assistants API allows you to build AI assistants within your own application
 | Run | An invocation of an Assistant on a Thread. The Assistant uses its configuration and the Thread’s Messages to perform tasks. |
 | Run Step | A detailed list of steps the Assistant took as part of a Run. Allows introspection of how the Assistant achieves results. |
 
+## Run Lifecycle
+
+| Status | Description |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| queued | When Runs are first created or when you complete the required_action, they are moved to a queued status. They should almost immediately move to in_progress. |
+| in_progress | While in_progress, the Assistant uses the model and tools to perform steps. You can view the progress being made by the Run by examining the Run Steps. |
+| completed | The Run successfully completed! You can now view all Messages the Assistant added to the Thread, and all the steps the Run took. You can also continue the conversation by adding more user Messages to the Thread and creating another Run. |
+| requires_action | When using the Function calling tool, the Run will move to a required_action state once the model determines the names and arguments of the functions to be called. You must then run those functions and submit the outputs before the run proceeds. If the outputs are not provided before the expires_at timestamp passes (roughly 10 minutes past creation), the run will move to an expired status. |
+| expired | This happens when the function calling outputs were not submitted before expires_at and the run expires. Additionally, if the runs take too long to execute and go beyond the time stated in expires_at, our systems will expire the run. |
+| cancelling | You can attempt to cancel an in_progress run using the Cancel Run endpoint. Once the attempt to cancel succeeds, the status of the Run moves to cancelled. Cancellation is attempted but not guaranteed. |
+| cancelled | Run was successfully cancelled. |
+| failed | You can view the reason for the failure by looking at the last_error object in the Run. The timestamp for the failure will be recorded under failed_at. |
+
 ## Usual flow
 
 - Create an Assistant in the API by defining its custom instructions and picking a model. If helpful, enable tools like Code Interpreter, Retrieval, and Function calling.
 - Create a Thread when a user starts a conversation.
-- Add Messages to the Thread as the user ask questions.
+- Add Messages to the Thread as the user asks questions.
 - Run the Assistant on the Thread to trigger responses. This automatically calls the relevant tools.
 
 ## Event Loop
