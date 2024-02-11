@@ -34,7 +34,7 @@ The Assistants API allows you to build AI assistants within your own application
 
 ## Objects
 
-| OBJECT | WHAT IT REPRESENTS |
+| Object | Description |
 |-------------|------------------------------------------------------------------------------------------------------------------------|
 | Assistant | Purpose-built AI that uses OpenAI’s models and calls tools |
 | Thread | A conversation session between an Assistant and a user. Threads store Messages and automatically handle truncation. |
