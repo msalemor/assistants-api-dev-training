@@ -82,3 +82,16 @@ As the conversation is happening, the Assistant manages the Thread Messages and 
 | user | Text | Can you give me a recipe to bake a cake? |
 
 ## Cleanup
+
+## Limits
+
+- Assistants
+  - The system instructions that the assistant uses. The maximum length is 32768 characters.
+  - There can be a maximum of 128 tools per assistant.
+  - There can be a maximum of 20 files attached to the assistant.
+  -  The size of all the files uploaded by your organization should not exceed 100 GB.
+- Message
+  - There can be a maximum of 10 files attached to a message. Useful for tools like retrieval and code_interpreter that can access and use files.
+- Knowledge Retrieval
+  - The maximum file size is 512 MB and no more than 2,000,000 tokens
+
