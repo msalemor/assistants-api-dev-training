@@ -83,6 +83,8 @@ As the conversation is happening, the Assistant manages the Thread Messages and 
 
 ## Cleanup
 
+- Care must be taken to delete unused objects such as Assistants, Threads and Files.
+
 ## Limits
 
 - Assistants
