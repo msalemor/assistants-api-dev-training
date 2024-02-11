@@ -34,6 +34,14 @@ The Assistants API allows you to build AI assistants within your own application
 
 ## Objects
 
+| OBJECT | WHAT IT REPRESENTS |
+|-------------|------------------------------------------------------------------------------------------------------------------------|
+| Assistant | Purpose-built AI that uses OpenAI’s models and calls tools |
+| Thread | A conversation session between an Assistant and a user. Threads store Messages and automatically handle truncation. |
+| Message | A message created by an Assistant or a user. Messages can include text, images, and other files. Stored as a list. |
+| Run | An invocation of an Assistant on a Thread. The Assistant uses its configuration and the Thread’s Messages to perform tasks. |
+| Run Step | A detailed list of steps the Assistant took as part of a Run. Allows introspection of how the Assistant achieves results. |
+
 ## Usual flow
 
 - Create an Assistant in the API by defining its custom instructions and picking a model. If helpful, enable tools like Code Interpreter, Retrieval, and Function calling.
