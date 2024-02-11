@@ -94,4 +94,16 @@ As the conversation is happening, the Assistant manages the Thread Messages and 
   - There can be a maximum of 10 files attached to a message. Useful for tools like retrieval and code_interpreter that can access and use files.
 - Knowledge Retrieval
   - The maximum file size is 512 MB and no more than 2,000,000 tokens
+    
+## Recommended use cases
+
+The ability to:
+
+- Leverage tools to:
+  - Perform complex mathematical calculations
+  - Make function calls and use the result during Prompt processing
+  - Work in RAG pattern scenarios
+- Management of the Messages in a Thread (conversation)
+
+These reasons make a compelling reason for adoption. Having said this, the limits, NFR requirements, and costs need to be considered when making a decision.
 
