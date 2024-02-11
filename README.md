@@ -1,4 +1,4 @@
-# Assistants API - Development Concepts<br/>An Assistants API development training
+# Assistants API - Developer/Development training
 
 ## Overview
 
