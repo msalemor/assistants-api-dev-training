@@ -1,5 +1,10 @@
 # Assistants API - Developer/Development training
 
+## Requirements
+
+- Recent GPT model deployment
+- Use API Version: 2024-02-15-preview
+
 ## Overview
 
 The Assistants API allows you to build AI assistants within your own applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
@@ -16,6 +21,7 @@ The Assistants API allows you to build AI assistants within your own application
 
 - GPT models are restful endpoint:
   - `POST /completion`
+
 - Assistants API extended these models with:
   - `POST/GET/DELETE /assistant`
   - `POST/GET/DELETE /thread`
@@ -89,12 +95,12 @@ As the conversation is happening, the Assistant manages the Thread Messages and 
   - The system instructions that the assistant uses. The maximum length is 32768 characters.
   - There can be a maximum of 128 tools per assistant.
   - There can be a maximum of 20 files attached to the assistant.
-  -  The size of all the files uploaded by your organization should not exceed 100 GB.
+  - The size of all the files uploaded by your organization should not exceed 100 GB.
 - Message
   - There can be a maximum of 10 files attached to a message. Useful for tools like retrieval and code_interpreter that can access and use files.
 - Knowledge Retrieval
   - The maximum file size is 512 MB and no more than 2,000,000 tokens
-    
+
 ## Recommended use cases
 
 The ability to:
@@ -106,4 +112,3 @@ The ability to:
 - Management of the Messages in a Thread (conversation)
 
 These reasons make a compelling reason for adoption. Having said this, the limits, NFR requirements, and costs need to be considered when making a decision.
-
