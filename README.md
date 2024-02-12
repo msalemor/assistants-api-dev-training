@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Recent GPT model deployment
+- Assistants avaible for models 3 and 4 in selected regions
 - Use API Version: 2024-02-15-preview
 
 ## Overview
