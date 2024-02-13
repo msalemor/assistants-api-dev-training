@@ -1,4 +1,4 @@
-# Assistants API - Developer/Development training
+# Azure OpenAI Assistants API - Developer/Development training
 
 ## Requirements
 
@@ -19,7 +19,7 @@ The Assistants API allows you to build AI assistants within your own application
 
 ## What is Assistants API
 
-- GPT models are restful endpoint:
+- GPT models are restful endpoints:
   - `POST /completion`
 
 - Assistants API extended these models with:
@@ -27,6 +27,7 @@ The Assistants API allows you to build AI assistants within your own application
   - `POST/GET/DELETE /thread`
   - `POST/GET/DELETE /run`
   - `POST/GET/DELETE /message`
+- And can use file
 
 ## Tools
 
