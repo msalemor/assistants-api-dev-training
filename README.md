@@ -10,7 +10,7 @@
 - Install the requirements:
   - `pip install -r requirements.txt`
 
-- Create a `notebooks\.env` file with the following content:
+- Create a `notebooks\.env` file and add your model settings:
 
 ```bash
 OPENAI_FULL_URI=https://<NAME>.openai.azure.com/openai/deployments/<DEPLOYMENT_NAME>/chat/completions?api-version=2024-02-15-preview
