@@ -2,12 +2,12 @@
 
 ## Requirements
 
-- Assistants avaible for models 3 and 4 in selected regions
+- Assistants available for models 3 and 4 in selected regions
 - Use API Version: 2024-02-15-preview
 
 ## Running these demos
 
-- Intall the pip requirements:
+- Install the requirements:
   - `pip install -r requirements.txt`
 
 - Create a `notebooks\.env` file with the following content:
