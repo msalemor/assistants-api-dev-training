@@ -5,6 +5,24 @@
 - Assistants avaible for models 3 and 4 in selected regions
 - Use API Version: 2024-02-15-preview
 
+## Running these demos
+
+- Intall the pip requirements:
+  - `pip install -r requirements.txt`
+
+- Create a `notebooks\.env` file with the following content:
+
+```bash
+OPENAI_FULL_URI=https://<NAME>.openai.azure.com/openai/deployments/<DEPLOYMENT_NAME>/chat/completions?api-version=2024-02-15-preview
+OPENAI_URI=https://<NAME>.openai.azure.com/
+OPENAI_KEY=<API_KEY>
+OPENAI_GPT_DEPLOYMENT=<DEPLOYMENT_NAME>
+OPENAI_VERSION=2024-02-15-preview
+EMAIL_URI="https://<NAME>.logic.azure.com:443/workflows/4a558b29ee16449587bde0e0ed4a1bfb/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=<SIGNATURE>"
+```
+
+- Open the notebook you want to test, and hit `Play`.
+
 ## Overview
 
 The Assistants API allows you to build AI Assistant in your own applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
