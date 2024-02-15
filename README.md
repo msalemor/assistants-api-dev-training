@@ -7,7 +7,7 @@
 
 ## Overview
 
-The Assistants API allows you to build AI assistants within your own applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
+The Assistants API allows you to build AI Assistant in your own applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
 
 ## Objective
 
