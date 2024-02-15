@@ -21,11 +21,13 @@ OPENAI_VERSION=2024-02-15-preview
 EMAIL_URI="https://<NAME>.logic.azure.com:443/workflows/4a558b29ee16449587bde0e0ed4a1bfb/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=<SIGNATURE>"
 ```
 
-- Open the notebook you want to test, and hit `Play`.
+- Open the notebook you want to run and hit `Play`.
+
+> Note: Emailing is implemented a Logic Apps that hits an HTTP trigger. The assistant should throw an error if you don't have this, but the demo should continue to run.
 
 ## Overview
 
-The Assistants API allows you to build AI Assistant in your own applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
+The Assistants API allows you to build AI Assistant in your applications. An Assistant has instructions and can leverage models, tools, and knowledge to respond to user queries.
 
 ## Objective
 
@@ -33,7 +35,7 @@ The Assistants API allows you to build AI Assistant in your own applications. An
 - To introduce the Assistants API development concepts
 - Compare a Jupyter notebook written without Assistants API and with Assistants API
 - Look at a full demo app
-- Understand the Assistant API foundational concepts, limits, use cases
+- Understand the Assistant API foundational concepts, limits, and use cases
 
 ## What is Assistants API
 
