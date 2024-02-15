@@ -14,11 +14,14 @@ def get_stock_price(symbol: str) -> float:
 
 
 def send_logic_apps_email(to: str, content: str):
-    json_payload = {'to': to, 'content': html.unescape(content)}
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(email_URI, json=json_payload, headers=headers)
-    if response.status_code == 202:
-        print("Email sent to: " + json_payload['to'])
+    try:
+        json_payload = {'to': to, 'content': html.unescape(content)}
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(email_URI, json=json_payload, headers=headers)
+        if response.status_code == 202:
+            print("Email sent to: " + json_payload['to'])
+    except:
+        print("Unable to send the email via Logic Apps.")
 
 
 def post_request(uri: str, key: str, payload: dict):
