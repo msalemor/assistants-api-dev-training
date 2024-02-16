@@ -8,13 +8,14 @@ Threads and Messages are used to track conversations between an Assistant and a 
 
 ## How are the Messages stored in a Thread? 
 
-For example, if a user sends two Prompt to the Assistant: 
+For example, the following two Prompts to the Assistant: 
 
 How do I bake a cake? 
 
 1. Chart y=2x+5, where x=[-10,10]. 
 2. Messages can contain text and image references. As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows: 
 
+Messages can contain text and image references. As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows: 
 
 ![alt text](images/thread_messages_stack.png)
 
