@@ -94,7 +94,7 @@ This code will:
 - From all the Messages in the Thread, it finds and keeps a local list of Messages until it finds the last user message. 
 - Reverses the order of the local list of Messages. 
 - For every message on the reversed list, it finds the role and content: 
-- If the content is text, it prints the role, text value. 
-- If the content is an image, it gets the image ID and uses this image ID using the OpenAI client.files to get the image 
+  - If the content is text, it prints the role and text value. 
+  - If the content is an image, it gets the image ID and uses this image ID using the OpenAI client.files to get the image 
 
 In essence, this function returns the last user Prompt first and then the Assistant Messages. 
