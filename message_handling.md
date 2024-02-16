@@ -15,25 +15,22 @@ How do I bake a cake?
 1. Chart y=2x+5, where x=[-10,10]. 
 2. Messages can contain text and image references. As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows: 
 
+
 ![alt text](images/thread_messages_stack.png)
 
-**> Notice:** that as Messages are added in the form of a stack, the last message is the Assistant response from the Assistant for the 2nd Prompt. 
 
- 
+**> Notice:** that as Messages are added in the form of a stack, the last message is the Assistant response from the Assistant for the 2nd Prompt. 
 
 ### Annotations 
 
 The content array of the object in Messages from Assistants may have annotations inside. Annotations give information about how to annotate the text in the Message. 
-
  
 
 There are two types of Annotations: 
 
-file_citation: File citations are made by the retrieval tool and indicate where a certain quote came from in a certain file that was uploaded and used by the Assistant to create the answer. 
+- `file_citation`: File citations are made by the retrieval tool and indicate where a certain quote came from in a certain file that was uploaded and used by the Assistant to create the answer. 
+- `file_path`: File path annotations are made by the code_interpreter tool and have references to the files that the tool created. 
 
-file_path: File path annotations are made by the code_interpreter tool and have references to the files that the tool created. 
-
- 
 
 ## Handling Thread Messages when a Run completes 
  
