@@ -106,6 +106,9 @@ As the conversation is happening, the Assistant manages the Thread Messages and 
 | assistant | Text | I can do that. |
 | user | Text | Can you give me a recipe to bake a cake? |
 
+
+[More details on Messages handling](message_handling.md)
+
 ## Cleanup
 
 - Care must be taken to delete unused objects such as Assistants, Threads and Files.

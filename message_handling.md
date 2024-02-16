@@ -20,7 +20,7 @@ Messages can contain text and image references. As the conversation is happening
 ![alt text](images/thread_messages_stack.png)
 
 
-**> Notice:** that as Messages are added in the form of a stack, the last message is the Assistant response from the Assistant for the 2nd Prompt. 
+**Notice:** that as Messages are added in the form of a stack, the last message is the Assistant response from the Assistant for the 2nd Prompt. 
 
 ### Annotations 
 
