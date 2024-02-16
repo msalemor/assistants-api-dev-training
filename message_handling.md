@@ -12,9 +12,8 @@ For example, if a user sends two Prompt to the Assistant:
 
 How do I bake a cake? 
 
-Chart y=2x+5, where x=[-10,10]. 
-
-Messages can contain text and image references. As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows: 
+1. Chart y=2x+5, where x=[-10,10]. 
+2. Messages can contain text and image references. As the conversation is happening, the Assistant manages the Thread Messages and stores them as follows: 
 
 [image] 
 
