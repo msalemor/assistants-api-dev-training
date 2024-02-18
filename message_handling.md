@@ -46,15 +46,18 @@ Retrieve all the Thread Messages to a list, reverse the list order, and bind the
 
 ### Last Message Only 
 
-Let’s look at this Python code: 
+Let’s look at this Python print_messages function code: 
 
 ```python
-def format_messages(thread_messages):
-    
+def read_assistant_file(file_id:str):
+    response_content = client.files.content(file_id)
+    return response_content.read()
+
+def print_messages(messages: Iterable[MessageFile]) -> None:
     message_list = []
 
     # Get all the messages till the last user message
-    for message in thread_messages:
+    for message in messages:
         message_list.append(message)
         if message.role == "user":
             break
@@ -63,25 +66,26 @@ def format_messages(thread_messages):
     message_list.reverse()
 
     # Print the user or Assistant messages or images
-    for message in message_list:                
+    for message in message_list:
         for item in message.content:
             # Determine the content type
             if isinstance(item, MessageContentText):
-                print(f'{message.role}:\n{item.text.value}\n')
+                print(f"{message.role}:\n{item.text.value}\n")
                 file_annotations = item.text.annotations
                 if file_annotations:
                     for annotation in file_annotations:
-                        print(f'Annotation: {annotation}')
+                        file_id = annotation.file_path.file_id
+                        content = read_assistant_file(file_id)
+                        print(f"Annotation Content:\n{str(content)}\n")
             elif isinstance(item, MessageContentImageFile):
-                # Retrieve image from file id
-                response_content = client.files.content(item.image_file.file_id)
-                data_in_bytes = response_content.read()
+                # Retrieve image from file id                
+                data_in_bytes = read_assistant_file(item.image_file.file_id)
                 # Convert bytes to image
                 readable_buffer = io.BytesIO(data_in_bytes)
                 image = Image.open(readable_buffer)
                 # Resize image to fit in terminal
                 width, height = image.size
-                image = image.resize((width //2, height //2), Image.LANCZOS)
+                image = image.resize((width // 2, height // 2), Image.LANCZOS)
                 # Display image
                 image.show()
 ```
