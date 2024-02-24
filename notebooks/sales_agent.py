@@ -1,7 +1,7 @@
-from assistant_agent import AssistantAgent
 from openai import AzureOpenAI
 
-from assistant_agent_settings import AgentSettings
+from AgentSettings import AgentSettings
+from AssistantAgent import AssistantAgent
 
 tools_list = [
     {"type": "code_interpreter"}

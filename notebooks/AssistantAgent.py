@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-from assistant_agent_settings import AgentSettings
+from AgentSettings import AgentSettings
 import assistant_agent_helper as helper
 
 from openai.types.beta.threads.message_content_image_file import MessageContentImageFile

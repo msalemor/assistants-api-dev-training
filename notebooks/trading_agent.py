@@ -1,10 +1,8 @@
 import common
 
-from assistant_agent import AssistantAgent
+from AgentSettings import AgentSettings
+from AssistantAgent import AssistantAgent
 from openai import AzureOpenAI
-
-
-from assistant_agent_settings import AgentSettings
 
 
 def call_functions(client, thread, run):
