@@ -18,6 +18,7 @@ from PIL import Image
 
 class AssistantAgent:
     def __init__(self, settings, client, name, instructions, data_folder, tools_list, keep_state: bool = False, fn_calling_delegate=None):
+        self.assistant = None
         self.settings = settings
         self.client = client
         self.name = name
@@ -29,7 +30,7 @@ class AssistantAgent:
         self.ai_threads = []
         self.ai_files = []
         self.file_ids = []
-        self.assistant = None
+        self.get_agent()
 
     def upload_file(self, path: str) -> FileObject:
         print(path)

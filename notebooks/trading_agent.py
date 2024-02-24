@@ -76,5 +76,4 @@ def get_agent():
                            client,
                            "Trading Agent", "You are an agent that can help get the latest stock prices and perform investment related calculations.",
                            DATA_FOLDER, tools_list, fn_calling_delegate=call_functions)
-    agent.get_agent()
     return agent
