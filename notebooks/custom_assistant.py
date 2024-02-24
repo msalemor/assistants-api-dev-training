@@ -1,6 +1,8 @@
 import os
 import time
 import shelve
+
+from threading import Lock
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable
@@ -21,17 +23,39 @@ ai_assistants = []
 ai_threads = []
 # List of files uploaded
 ai_files = []
+#
+assistant = None
+
+# client = AzureOpenAI(
+#     api_key=api_key, api_version=api_version, azure_endpoint=api_endpoint)
 
 tools_list = [
     {"type": "code_interpreter"}
 ]
 
-load_dotenv()
-api_endpoint = os.getenv("OPENAI_URI")
-api_key = os.getenv("OPENAI_KEY")
-api_version = os.getenv("OPENAI_VERSION")
-api_deployment_name = os.getenv("OPENAI_GPT_DEPLOYMENT")
-email_URI = os.getenv("EMAIL_URI")
+DATA_FOLDER = "data/sales/"
+
+
+def upload_file(client: AzureOpenAI, path: str) -> FileObject:
+    print(path)
+    with Path(path).open("rb") as f:
+        return client.files.create(file=f, purpose="assistants")
+
+
+def read_assistant_file(client, file_id: str):
+    response_content = client.files.content(file_id)
+    return response_content.read()
+
+
+def upload_all_files(client, folder: str):
+    files = os.listdir(folder)
+    assistant_files = []
+    for file in files:
+        filePath = DATA_FOLDER + file
+        assistant_file = upload_file(client, filePath)
+        ai_files.append(assistant_file)
+        assistant_files.append(assistant_file)
+    return [file.id for file in assistant_files]
 
 
 def add_thread(thread):
@@ -60,12 +84,21 @@ def clear_shelves():
         threads_shelf.clear()
 
 
-clear_shelves()
+# clear_shelves()
 
 
-def read_assistant_file(file_id: str):
-    response_content = client.files.content(file_id)
-    return response_content.read()
+def get_sales_assistant(client, model_deployment, tools_list, folder):
+    clear_shelves()
+    assistant = client.beta.assistants.create(
+        name="Sales Assistant",
+        instructions="You are a sales assistant. You can answer questions related to customer orders.",
+        tools=tools_list,
+        model=model_deployment,
+        file_ids=upload_all_files(client, folder),
+    )
+    ai_assistants.append(assistant)
+    assistant = assistant
+    return assistant
 
 
 def print_messages(name: str, messages: Iterable[MessageFile]) -> None:
@@ -108,24 +141,29 @@ def print_messages(name: str, messages: Iterable[MessageFile]) -> None:
                 image.show()
 
 
-def process_prompt(client, assistant, name: str, user_id: str, prompt: str) -> None:
+def process_prompt(client, assistant, name: str, user_id: str, prompt: str, keep_state: bool = False, delegate=None) -> None:
 
-    thread_id = check_if_thread_exists(user_id)
+    if keep_state:
+        thread_id = check_if_thread_exists(user_id)
 
-    # If a thread doesn't exist, create one and store it
-    if thread_id is None:
-        print(f"Creating new thread for {name} with user_id {user_id}")
-        thread = client.beta.threads.create()
-        store_thread(user_id, thread)
-        thread_id = thread.id
-    # Otherwise, retrieve the existing thread
+        # If a thread doesn't exist, create one and store it
+        if thread_id is None:
+            print(f"Creating new thread for {name} with user_id {user_id}")
+            thread = client.beta.threads.create()
+            store_thread(user_id, thread)
+            thread_id = thread.id
+        # Otherwise, retrieve the existing thread
+        else:
+            print(
+                f"Retrieving existing thread for {name} with user_id {user_id}")
+            thread = client.beta.threads.retrieve(thread_id)
+            add_thread(thread)
     else:
-        print(f"Retrieving existing thread for {name} with user_id {user_id}")
-        thread = client.beta.threads.retrieve(thread_id)
-        add_thread(thread)
+        thread = client.beta.threads.create()
 
     client.beta.threads.messages.create(
         thread_id=thread.id, role="user", content=prompt)
+
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
         assistant_id=assistant.id,
@@ -151,16 +189,18 @@ def process_prompt(client, assistant, name: str, user_id: str, prompt: str) -> N
             break
         if run.status == "expired":
             # Handle expired
-            print(run)
             break
         if run.status == "cancelled":
             # Handle cancelled
-            print(run)
             break
         if run.status == "requires_action":
-            pass
+            if delegate:
+                delegate(client, thread, run)
         else:
             time.sleep(5)
+    if keep_state:
+        client.beta.threads.delete(thread.id)
+        print("Deleted thread: ", thread.id)
 
 
 def cleanup(client):
@@ -173,3 +213,76 @@ def cleanup(client):
     print("Deleting: ", len(ai_files), " files.")
     for file in ai_files:
         print(client.files.delete(file.id))
+
+
+class CKVStore:
+    def __init__(self):
+        self.list = []
+        self.lock = Lock()
+
+    def get_category(self, category):
+        return [item for item in self.list if item["category"] == category]
+
+    def get_value(self, category, key):
+        return [item["value"] for item in self.list if item["category"] == category and item["key"] == key]
+
+    def upsert_value(self, category, key, value):
+        for item in self.list:
+            if item["category"] == category and item["key"] == key and item["value"] == value:
+                # item["value"] = value
+                return
+        with self.lock:
+            self.list.append(
+                {"category": category, "key": key, "value": value})
+
+    def delete_category(self, category):
+        with self.lock:
+            self.list = [
+                item for item in self.list if item["category"] != category]
+
+    def delete_key(self, category, key, value):
+        with self.lock:
+            self.list = [
+                item for item in self.list if not (item["category"] == category and item["key"] == key and item["value"] == value)]
+
+    def reset(self):
+        with self.lock:
+            self.list = []
+
+
+class AgentSettings:
+    def __init__(self):
+        load_dotenv()
+        self.api_endpoint = os.getenv("OPENAI_URI")
+        self.api_key = os.getenv("OPENAI_KEY")
+        self.api_version = os.getenv("OPENAI_VERSION")
+        self.model_deployment = os.getenv("OPENAI_GPT_DEPLOYMENT")
+        self.email_URI = os.getenv("EMAIL_URI")
+
+
+class AssistantAgent:
+    def __init__(self, data_folder, tools_list, keep_state: bool = False, fn_calling_delegate=None):
+        self.settings = AgentSettings()
+        self.fn_calling_delegate = fn_calling_delegate
+        self.keep_state = keep_state
+        self.client = AzureOpenAI(
+            api_key=self.settings.api_key,
+            api_version=self.settings.api_version,
+            azure_endpoint=self.settings.api_endpoint)
+        self.assistant = get_sales_assistant(
+            self.client,
+            self.settings.model_deployment,
+            tools_list,
+            data_folder)
+
+    def process(self, name, user_id, prompt):
+        process_prompt(self.client,
+                       self.assistant,
+                       name,
+                       user_id,
+                       prompt,
+                       self.keep_state,
+                       self.fn_calling_delegate)
+
+    def cleanup(self):
+        cleanup(self.client)
