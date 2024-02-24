@@ -73,7 +73,7 @@ client = AzureOpenAI(
     azure_endpoint=settings.api_endpoint)
 
 
-def get_assistant():
+def get_agent():
     agent = AssistantAgent(settings,
                            client,
                            "Trading Agent", "You are an agent that can help get the latest stock prices and perform investment related calculations.",

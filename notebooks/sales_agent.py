@@ -17,7 +17,7 @@ client = AzureOpenAI(
     azure_endpoint=settings.api_endpoint)
 
 
-def get_sales_agent():
+def get_agent():
     agent = AssistantAgent(settings,
                            client,
                            "Sales Assistant", "You are an Assistant that can help answer questions and perform calculations related to customers, customer orders, inventory, and sellers with the provided CSV files.", DATA_FOLDER, tools_list)
