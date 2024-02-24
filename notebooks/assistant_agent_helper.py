@@ -87,11 +87,12 @@ def clear_shelves():
 # clear_shelves()
 
 
-def get_sales_assistant(client, model_deployment, tools_list, folder):
+def get_sales_assistant(client, model_deployment, name, instructions, tools_list, folder):
     clear_shelves()
     assistant = client.beta.assistants.create(
-        name="Sales Assistant",
-        instructions="You are a sales assistant. You can answer questions related to customer orders.",
+        name=name,  # "Sales Assistant",
+        # "You are a sales assistant. You can answer questions related to customer orders.",
+        instructions=instructions,
         tools=tools_list,
         model=model_deployment,
         file_ids=upload_all_files(client, folder),
@@ -248,41 +249,3 @@ class CKVStore:
     def reset(self):
         with self.lock:
             self.list = []
-
-
-class AgentSettings:
-    def __init__(self):
-        load_dotenv()
-        self.api_endpoint = os.getenv("OPENAI_URI")
-        self.api_key = os.getenv("OPENAI_KEY")
-        self.api_version = os.getenv("OPENAI_VERSION")
-        self.model_deployment = os.getenv("OPENAI_GPT_DEPLOYMENT")
-        self.email_URI = os.getenv("EMAIL_URI")
-
-
-class AssistantAgent:
-    def __init__(self, data_folder, tools_list, keep_state: bool = False, fn_calling_delegate=None):
-        self.settings = AgentSettings()
-        self.fn_calling_delegate = fn_calling_delegate
-        self.keep_state = keep_state
-        self.client = AzureOpenAI(
-            api_key=self.settings.api_key,
-            api_version=self.settings.api_version,
-            azure_endpoint=self.settings.api_endpoint)
-        self.assistant = get_sales_assistant(
-            self.client,
-            self.settings.model_deployment,
-            tools_list,
-            data_folder)
-
-    def process(self, name, user_id, prompt):
-        process_prompt(self.client,
-                       self.assistant,
-                       name,
-                       user_id,
-                       prompt,
-                       self.keep_state,
-                       self.fn_calling_delegate)
-
-    def cleanup(self):
-        cleanup(self.client)
