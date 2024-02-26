@@ -63,17 +63,22 @@ tools_list = [
 ]
 
 DATA_FOLDER = None
-settings = AgentSettings()
-
-client = AzureOpenAI(
-    api_key=settings.api_key,
-    api_version=settings.api_version,
-    azure_endpoint=settings.api_endpoint)
 
 
-def get_agent():
+def get_agent(settings=None, client=None):
+
+    if settings is None:
+        settings = AgentSettings()
+
+    if client is None:
+        client = AzureOpenAI(
+            api_key=settings.api_key,
+            api_version=settings.api_version,
+            azure_endpoint=settings.api_endpoint)
+
     agent = AssistantAgent(settings,
                            client,
                            "Trading Agent", "You are an agent that can help get the latest stock prices and perform investment related calculations.",
                            DATA_FOLDER, tools_list, fn_calling_delegate=call_functions)
+
     return agent
