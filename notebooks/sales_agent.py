@@ -10,7 +10,7 @@ tools_list = [
 DATA_FOLDER = "data/sales/"
 
 
-def get_agent(settings, client):
+def get_agent(settings=None, client=None):
 
     if settings is None:
         settings = AgentSettings()
