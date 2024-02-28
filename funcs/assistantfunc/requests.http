@@ -1,0 +1,8 @@
+POST http://localhost:7071/api/AssistantsAPIHttp/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "user_id": "123",
+    "user_name":"Suzan",
+    "prompt":"What is the linear equation if two x,y points are (1,2) and (10,5)?"
+}
