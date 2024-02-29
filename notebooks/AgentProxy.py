@@ -1,13 +1,17 @@
 from openai import AzureOpenAI
 from AgentRegistration import AgentRegistration
 from AgentSettings import AgentSettings
+from ArgumentException import ArgumentExceptionError
 
 
 class AgentProxy:
-    def __init__(self, settings=None, client=None, registered_agents: list[AgentRegistration] = []):
+    def __init__(self, settings=None, client=None, registered_agents: list[AgentRegistration] = None):
         self.settings = settings
         self.client = client
         self.registered_agents = registered_agents
+
+        if registered_agents is None:
+            raise ArgumentExceptionError("Missing registered_agents")
 
         if settings is None:
             self.settings = AgentSettings()
@@ -56,7 +60,7 @@ Output in ONE word."""
 
     def process_for_intent(self, user_name, user_id, prompt: str) -> str:
         intent = self.__semantic_intent(prompt)
-        if intent == None or intent == "OtherAgent" or intent == "Unknown":
+        if intent is None or intent == "OtherAgent" or intent == "Unknown":
             completion = self.client.chat.completions.create(
                 model=self.settings.model_deployment,
                 messages=[

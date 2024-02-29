@@ -1,14 +1,21 @@
 from AgentSettings import AgentSettings
 from openai import AzureOpenAI
+from ArgumentException import ArgumentExceptionError
+from AssistantAgent import AssistantAgent
 
 
 class AgentRegistration:
-    def __init__(self, settings=None, client=None, intent: str = "intent", intent_desc: str = "intent_desc", agent=None):
+    def __init__(self, settings=None, client=None, intent: str = None, intent_desc: str = None, agent: AssistantAgent = None):
         self.settings = settings
         self.client = client
         self.agent = agent
         self.intent = intent
         self.intent_desc = intent_desc
+
+        if intent is None:
+            raise ArgumentExceptionError("intent parameter is missing")
+        if intent_desc is None:
+            raise ArgumentExceptionError("intent_desc parameter is missing")
 
         if settings is None:
             self.settings = AgentSettings()
