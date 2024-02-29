@@ -24,11 +24,11 @@ class AgentProxy:
 
     def __semantic_intent(self, prompt: str) -> str:
         prompt_template = """system:
-You are an agent that can determine intent from the following list of intents and return the intent that best matches the user's question.
+You are an agent that can determine intent from the following list of intents and return the intent that best matches the user's question or statement.
 
 List of intents:
 <INTENTS>
-OtherAgent: any other question
+OtherAgent: any other question.
 
 user:
 <QUESTION>
