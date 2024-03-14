@@ -4,7 +4,7 @@ This is a sample of two Assistants being used as agents in a complex Copilot sol
 
 ## Diagram
 
-![Two agent Assistant Diagram](images/proxy-two-agent-diagram.png)
+![Two agent Assistant Diagram](images/cs-sales-copilot.png)
 
 ## Agents
 
