@@ -33,7 +33,7 @@ public class AssistantAgent : IAssistantAgent
         GetResolvedToolOutput = resolveDelegate;
     }
 
-    public async Task LoadFiles(string folderPath)
+    public async Task LoadFilesAsync(string folderPath)
     {
         try
         {
@@ -50,7 +50,7 @@ public class AssistantAgent : IAssistantAgent
         catch (Exception) { }
     }
 
-    public async Task CreateAssistant()
+    public async Task CreateAgentAsync()
     {
         // Create 
         var opts = new AssistantCreationOptions(Settings.APIDeploymentName)
@@ -71,7 +71,7 @@ public class AssistantAgent : IAssistantAgent
         if (DataFolder is not null)
         {
             // Load the files in the folder
-            await LoadFiles(DataFolder);
+            await LoadFilesAsync(DataFolder);
 
             // If files were loaded add them to the assistant
             foreach (var fileId in this.FileIds)
@@ -190,7 +190,8 @@ public class AssistantAgent : IAssistantAgent
     //     return null;
     // }
 
-    public async Task ProcessPrompt(string input)
+    // TODO: maxTokens and temperature not used
+    public async Task ProcessPromptAsync(string input, int maxTokens = 100, float temperature = 0.3f)
     {
         Response<ThreadMessage> messageResponse = await Client.CreateMessageAsync(
             Thread.Id,
