@@ -1,6 +1,6 @@
 # Three Agent Copilot<br/>with Agent Proxy
 
-This is a sample of two Assistants being used as agents in a complex Copilot solution.
+This is a sample of three Assistants being used as agents in a complex Copilot solution.
 
 ## Diagram
 
