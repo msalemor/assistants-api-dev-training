@@ -8,8 +8,9 @@ This is a sample of three Assistants being used as agents in a complex Copilot s
 
 ## Agents
 
-- **Sales Agent:** It is implemented with an Assistants API that can perform calculations and can provide the user information customer, sellers, customer orders, and inventory.
-- **Information Agent:** It is implemented with an Assistant API with function calling to get mock city and weather information.
+- **City Agent:** this agent is implemented with an Assistants API that can provide city information.
+- **Sales Agent:** this ageint is implemented with an Assistants API that can perform calculations and can provide the user information customer, sellers, customer orders, and inventory.
+- **Information Agent:** this ageint is implemented with GPT with Function Calling and can provide.
 
 ## Orchestration
 
