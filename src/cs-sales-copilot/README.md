@@ -19,5 +19,5 @@ This is a sample of three Assistants being used as agents in a complex Copilot s
 ## Possible messages handling options
 
 1. No handling: a la LLM model
-2. Manual handling: user write logic to coordinate messages between two agent
+2. Manual handling: user writes the logic to coordinate messages between two agent
 3. Hybrid: One agent keeps state the other just used as LLM
